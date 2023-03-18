@@ -17,26 +17,41 @@
     </td>
     <td></td>
     <td></td>
-    <!--    <td>-->
-    <!--      <label>-->
-    <!--        <currency-input-->
-    <!--            v-bind="{ currency: 'USD', precision: 0, distractionFree: true, valueAsInteger: true }"-->
-    <!--            v-model.number="listing_discount"-->
-    <!--            class="model-listing-discount-value form-control form-control-sm"-->
-    <!--            :placeholder="listing_placeholder"-->
-    <!--            :disabled="disabled"/>-->
-    <!--      </label>-->
-    <!--    </td>-->
-    <!--    <td>-->
-    <!--      <label>-->
-    <!--        <select v-model="listing_discount_type"-->
-    <!--                class="model-listing-discount-type form-control form-control-sm p-0" :disabled="disabled" >-->
-    <!--          <option v-for="val in discountValuesConst" :value="val" :key="'listing'+val">{{ val }}</option>-->
-    <!--        </select>-->
-    <!--      </label>-->
-    <!--    </td>-->
-    <!--    <td></td>-->
     <td>
+      <label>
+        <currency-input
+          v-bind="{
+            currency: 'USD',
+            precision: 0,
+            distractionFree: true,
+            valueAsInteger: true
+          }"
+          v-model.number="listing_discount"
+          class="model-listing-discount-value form-control form-control-sm"
+          :placeholder="listing_placeholder"
+          :disabled="disabled"
+        />
+      </label>
+    </td>
+    <td>
+      <label>
+        <select
+          v-model="listing_discount_type"
+          class="model-listing-discount-type form-control form-control-sm p-0"
+          :disabled="disabled"
+        >
+          <option
+            v-for="val in discountValuesConst"
+            :value="val"
+            :key="'listing' + val"
+          >
+            {{ val }}
+          </option>
+        </select>
+      </label>
+    </td>
+    <td></td>
+    <!-- <td>
       <label>
         <currency-input
           v-model.number="bucket_discount"
@@ -50,7 +65,7 @@
           :placeholder="bucket_placeholder"
           :disabled="disabled"
         />
-        <!-- <input
+        <input
           v-model.number="bucket_discount"
           v-bind="{
             currency: 'USD',
@@ -61,7 +76,7 @@
           class="model-bucket-discount-value form-control form-control-sm"
           :placeholder="bucket_placeholder"
           :disabled="disabled"
-        />-->
+        />
       </label>
     </td>
     <td>
@@ -81,7 +96,7 @@
         </select>
       </label>
     </td>
-    <td></td>
+    <td></td> -->
   </tr>
 </template>
 

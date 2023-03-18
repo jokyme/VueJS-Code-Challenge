@@ -4,35 +4,42 @@
     <td class="align-middle">{{ this.trim.name }}</td>
     <td class="align-middle">{{ this.msrp_display }}</td>
     <td class="align-middle">{{ this.invoice_display }}</td>
-    <!--    <td>-->
-    <!--      <label>-->
-    <!--        <currency-input-->
-    <!--            v-bind="{ currency: 'USD', precision: 0, distractionFree: true, valueAsInteger: true }"-->
-    <!--            v-model.number="listing_discount"-->
-    <!--            class="trim-listing-discount-value form-control form-control-sm"-->
-    <!--            placeholder="Needs Price"-->
-    <!--            :disabled="disabled"/>-->
-    <!--      </label>-->
-    <!--    </td>-->
-    <!--    <td>-->
-    <!--      <label>-->
-    <!--        <select v-model="listing_discount_type"-->
-    <!--                class="trim-listing-discount-type form-control form-control-sm p-0" :disabled="disabled">-->
-    <!--          <option v-for="val in discountValuesConst" :value="val" :key="'listing'+val">{{ val }}</option>-->
-    <!--        </select>-->
-    <!--      </label>-->
-    <!--    </td>-->
-    <!--    <td class="trim-listing-discount-min-price align-middle"> {{ min_listing_price }}</td>-->
     <td>
       <label>
         <currency-input
+          v-bind="currencyFormat('listing_discount')"
+          v-model.number="listing_discount"
+          class="trim-listing-discount-value form-control form-control-sm"
+          placeholder="Needs Price"
+          :disabled="disabled"
+        />
+      </label>
+    </td>
+    <td>
+      <label>
+        <select
+          v-model="listing_discount_type"
+          class="trim-listing-discount-type form-control form-control-sm p-0"
+          :disabled="disabled"
+        >
+          <option
+            v-for="val in discountValuesConst"
+            :value="val"
+            :key="'listing' + val"
+          >
+            {{ val }}
+          </option>
+        </select>
+      </label>
+    </td>
+    <td class="trim-listing-discount-min-price align-middle">
+      {{ min_listing_price }}
+    </td>
+    <!-- <td>
+      <label>
+        <currency-input
           v-model.number="bucket_discount"
-          v-bind="{
-            currency: 'USD',
-            precision: 0,
-            distractionFree: true,
-            valueAsInteger: true
-          }"
+          v-bind="currencyFormat('bucket_discount')"
           class="trim-bucket-discount-value form-control form-control-sm"
           placeholder="Needs Price"
           :disabled="disabled"
@@ -58,7 +65,7 @@
     </td>
     <td class="trim-bucket-discount-min-price align-middle">
       {{ min_bucket_price }}
-    </td>
+    </td> -->
   </tr>
 </template>
 <script>
@@ -135,6 +142,28 @@
     },
     created() {}, // ['trim', 'configuration'],
     methods: {
+      currencyFormat(name) {
+        if (
+          this.configuration &&
+          this.configuration[name] &&
+          this.configuration[name].type === '$'
+        ) {
+          return {
+            currency: 'USD',
+            precision: 0,
+            distractionFree: true,
+            valueAsInteger: true
+          }
+        }
+
+        return {
+          currency: { suffix: '%' },
+          valueRange: { min: 0, max: 100 },
+          precision: 0,
+          distractionFree: true,
+          valueAsInteger: true
+        }
+      },
       getDiscountType(name) {
         const hasValue =
           this.configuration &&
